@@ -1,0 +1,41 @@
+LIFE : 857
+  Be-Born : 41
+  Marry : 48
+  Divorce : 14
+  Injure : 151
+  Die : 603
+MOVEMENT : 784
+  Transport : 784
+TRANSACTION : 219
+  Transfer-Ownership : 87
+  Transfer-Money : 132
+BUSINESS : 122
+  Start-Org : 35
+  Merge-Org : 11
+  Declare-Bankruptcy : 38
+  End-Org : 38
+CONFLICT : 1524
+  Attack : 1456
+  Demonstrate : 68
+CONTACT : 331
+  Meet : 204
+  Phone-Write : 127
+PERSONELL : 0
+  Start-Position : 0
+  End-Position : 0
+  Nominate : 0
+  Elect : 0
+JUSTICE : 676
+  Arrest-Jail : 100
+  Release-Parole : 20
+  Trial-Hearing : 85
+  Charge-Indict : 131
+  Sue : 59
+  Convict : 73
+  Sentence : 100
+  Fine : 34
+  Execute : 25
+  Extradite : 4
+  Acquit : 5
+  Appeal : 37
+  Pardon : 3
