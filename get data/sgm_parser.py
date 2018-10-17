@@ -52,7 +52,6 @@ def read_data(str):
     str = str.replace("\"","")
     str = str.replace("...","")
     str = str.strip()
-    str = str + "\n-------------------------------------------------------------\n"
     print str
     arr_line = str.split('. ')
 
@@ -65,5 +64,5 @@ def read_data(str):
 
 
 if __name__ == '__main__':
-    # sgm_paser2(get_file_path())
-    sgm_paser()
+    sgm_paser2(get_file_path())
+    # sgm_paser()
