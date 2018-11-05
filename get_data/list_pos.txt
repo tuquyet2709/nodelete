@@ -1,0 +1,11 @@
+VBN
+NNS
+VBD
+JJ
+NN
+VBG
+VB
+VBZ
+RB
+IN
+

@@ -31,9 +31,11 @@ def read_data(file_path):
                     content = content.replace('\n',' ')
                     anchor = event_mention.find('anchor')
                     trigger = anchor.find('charseq').text
-                    trigger = trigger.replace('\n',' ')
-                    fo.write(trigger + '|'+ content+'\n')
-                    ft.write(trigger + '|')
+                    trigger = trigger.lower().replace('\n',' ')
+                    if len(trigger.split()) == 1:
+                        if ((trigger != "it") and(trigger != "its") and (trigger != "this") and (trigger != "one") and (trigger != "them") and (trigger != "q&a") and (trigger != "it") and (trigger != "ex") and (trigger != "when") and (trigger != "out") and (trigger != "that") and (trigger != "will") and (trigger != "what")):
+                            fo.write(trigger + '|'+ content+'\n')
+                            ft.write(trigger + '|')
         except IOError:
             pass
     fo.close()

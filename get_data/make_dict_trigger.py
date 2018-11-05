@@ -14,4 +14,5 @@ for word in list_trigger:
 
 f = open("dictionary.txt", 'w')
 for word in result:
-  f.write(word+"\n")
+  if len(word.split()) == 1:
+    f.write(word+"\n")

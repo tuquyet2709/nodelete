@@ -22,7 +22,6 @@ convicted
 sentenced
 cost
 quit
-took on
 sale
 replace
 ending
@@ -34,9 +33,7 @@ marches
 protests
 clashes
 war
-this
 bombing
-it
 invasion
 marched
 drove
@@ -50,9 +47,7 @@ explosions
 demonstrations
 fighting
 fought
-turned out
 took
-turning out
 bomb
 dead
 campaigns
@@ -78,7 +73,6 @@ telephone
 eliminate
 killings
 conflict
-its
 forum
 negotiations
 meeting
@@ -117,7 +111,6 @@ dissolving
 dissolved
 by-elections
 founded
-took office
 create
 forging
 launching
@@ -130,7 +123,6 @@ buy
 dismantling
 shed
 launched
-set up
 debut
 open
 discussed
@@ -170,7 +162,6 @@ attacks
 abandoned
 return
 movement
-aid package
 admits
 force
 trial
@@ -178,9 +169,7 @@ tried
 former
 providing
 become
-swept out of power
 extradited
-buying out
 buyout
 named
 deploy
@@ -197,8 +186,6 @@ jailed
 brawl
 attack
 kill
-dip into
-be out
 ousting
 leave
 transporting
@@ -214,7 +201,6 @@ bombardment
 hit
 secured
 rumbled
-wiped out
 secure
 reaching
 cross
@@ -229,7 +215,6 @@ assault
 letter
 seized
 withdrawn
-smash through
 resign
 vacation
 returning
@@ -253,7 +238,6 @@ discuss
 started
 head
 faces
-came to
 case
 bombings
 fallen
@@ -280,7 +264,6 @@ delivery
 get
 arrival
 postwar
-went back
 leaving
 arriving
 entering
@@ -307,7 +290,6 @@ detained
 transport
 went
 exported
-bound for
 election
 pardoned
 lost
@@ -340,7 +322,6 @@ poisoned
 receiving
 voyage
 launch
-lifted off
 arrive
 landing
 killing
@@ -349,7 +330,6 @@ indicted
 serving
 bringing
 casualties
-punched through
 rush
 drive
 fled
@@ -359,8 +339,6 @@ hammering
 invaded
 mount
 introduced
-takes over
-taking over
 carrying
 strike
 evicted
@@ -374,9 +352,6 @@ custody
 assassinate
 indictment
 response
-took over
-came into power
-give up
 new
 be
 drop
@@ -387,7 +362,6 @@ shooting
 extermination
 contacted
 e-mails
-when
 used
 message
 messages
@@ -403,7 +377,6 @@ donation
 donations
 donated
 received
-locked up
 kills
 take
 following
@@ -420,9 +393,7 @@ thrown
 skips
 takes
 give
-hauled back
 extraditing
-get out
 getting
 beat
 assaulted
@@ -439,19 +410,15 @@ torture
 letters
 called
 hire
-put away
-go back
 suing
 elect
 walked
-let go
 cuts
 resigning
 receive
 departures
 transfer
 reductions
-sept. 11
 destroy
 occupied
 passing
@@ -459,14 +426,12 @@ re)merger
 ceased
 form
 disbanded
-that
 driving
 vote
 poll
 slices
 insurgency
 insurrection
-miao rebellions
 reintroduced
 reward
 lobbed
@@ -489,20 +454,13 @@ merging
 merged
 ran
 bankrupting
-paid out
 hired
 appoint
 wipe
-nine eleven
 name
 calls
-step down
 appointing
-took down
-step into
-used to be
 murdering
-not found
 walk
 remove
 found
@@ -516,7 +474,6 @@ crime
 flock
 did
 giving
-will
 appealing
 buys
 selecting
@@ -525,37 +482,25 @@ retreats
 gone
 removed
 conquered
-sit down
 unborn
 tragedy
-got back
-lost their lives
 poisoning
 siege
 massacre
-world war two
 acts
 overthrown
-air strike
-go off
 deceased
-out
 comes
 goes
-get to
 travel
 paying
-come back
 coming
 talked
-them
-getting through
 landed
 land
 put
 nomination
 nominations
-lost t
 blow
 defected
 trips
@@ -581,13 +526,11 @@ dribbled
 became
 recover
 awards
-thrown out
 revoke
 pays
 butchered
 invades
 overthrew
-put in power
 putting
 caught
 work
@@ -598,47 +541,28 @@ writes
 harm
 warfare
 combat
-shooting down
-shot down
-head over
 defeat
 threat
 interview
-300 sorties
-1500 sorties
-those sorties
-strike sorties
 detonated
-take those out
 marching
 battles
 briefing
-open fire
-pot shot
-flown out
 gunshot
 wound
 rid
 resistance
 obliterated
 hits
-going across
 smuggling
 blasts
-showing up
 threatened
-held up
-taking to
 rallies
 punch
 forward
-shot at
 blew
-the one
 deadliest
 punched
-pushed onward
-pushed forward
 opened
 push
 defeating
@@ -650,21 +574,15 @@ skirmishes
 firefight
 battlefront
 defend
-close in
 using
 driven
 draw
-what
-rose up
 invading
 approach
 racing
 rolling
 flying
-taken over
-taken control
 shelling
-moved in
 thrust
 capturing
 raid
@@ -675,37 +593,26 @@ stabbing
 injury
 fractured
 fractures
-broken bones
 something
 surge
 engage
 shelled
 attacking
 speeding
-paid that price
-driven back
 dropped
 casualty
 funeral
 striking
 lifted
-bitten the dust
 desert
-air strikes
 shoot
 mutilated
-take out
-continue on
 dropping
-opened up
-going off
 iraq
 tortured
 murdered
 hanged
 friendly-fire
-world war ii
-heading back
 wartime
 write
 flee
@@ -713,44 +620,32 @@ back
 firefights
 delivered
 reach
-operation iraqi freedom
 ambush
-coming back
 wrote
 discussion
 apprehend
 emerge
 critical
-put to death
-take down
 approaching
-fend off
 barrage
 carry
 flight
 gathering
 convictions
 try
-suicide bombing
-blew herself up
 reunited
-stepping down
 vacate
-stepping aside
 bust
 end
 rehired
 fined
 report
 nab
-end up
 hearings
 clear
 clashing
 converge
-assault w
 fell
-the phone
 stabbed
 bleeding
 kidnapped
@@ -768,61 +663,40 @@ indegrees
 egress
 battling
 join
-head out
 terror
 battlefield
 terminating
-kicked out
 expelled
 alive
 spoke
 edged
-fighting w
 control
 critically
-sitting down
-getting into
 down
 entered
-e war
-brought back
-went down
 kicked
 beaten
 sees
 phone
 trauma
 stab
-chapter 11
 layoffs
 hijacking
 raided
 capture
 atrocities
-is no more
-get into
-show up
-showed up
-came across
-run into
-going down
-one
 dismissed
 termination
 talk
-death penalty
-meet up
 bankruptcies
 september
 shootout
 demonstrating
 joining
-picked up
 wandered
 had
 merger
 lose
-live fire exchange
 targeting
 hostilities
 do
@@ -837,17 +711,12 @@ activities
 sunk
 beating
 body
-tie the knot
 spent
-stepped doup
-stepped down
-teped down
 atack
 hurting
 extradition
 arrives
 climb
-gunned down
 sailed
 mission
 face
@@ -856,12 +725,9 @@ condemned
 prosecution
 unindicted
 employed
-hear from
 prosecute
 stay
-sat down
 airstrike
-critical condition
 firings
 violent
 telephones
@@ -879,38 +745,22 @@ unions
 jumping
 rioting
 fatal
-taken into custody
-blow up
-pled guilty
-blew himself up
 due
 helicopter
-raping and drugging
 dismantle
 precede
 re-electing
 convention
-hands on
-loss of life
-september 11th
 raped
 rape
-give birth
-gives birth
 placed
 closed
-lies in state
-charges of widespread child sexual abuse in
 forced
 fights
 replacing
-came to power
 convene
 offensive
 slayings
-blown up
-q&a
-cut out
 ripped
 chatted
 traveled
@@ -919,13 +769,8 @@ knifing
 drowned
 provided
 having
-opened fire
-target practice
 injure
 written
-took out
-ex
-walk free
 killer
 contributions
 bankrolling
@@ -954,24 +799,19 @@ sliced
 hoisted
 evacuated
 visiting
-brutality or intimidation
 incidents
 blind
-pick up
 cause
 fund
-taking money
 payroll
 money
 dinner
 massacres
-raising money
 meets
 turbulence
 voted
 win
 confrontation
-pouring out
 smacked
 stealing
 stole
@@ -987,15 +827,10 @@ retiring
 benefits
 sign
 flogged
-gets out
 convincted
-doing time
-coming over
 o-v-e-r
 failed
 swallowed
-buy out
-tying the knot
 starting
 spend
 collapse
@@ -1018,4 +853,3 @@ departure
 filings
 folding
 layoff
-

@@ -10,6 +10,7 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
+import nltk
 
 def time_diff_str(t1, t2):
   if (t2 < t1):
@@ -38,6 +39,10 @@ def convert_list_5_to_string5(list5):
         string = string + " "
   return string
 
+def get_pos_from_sentence(sentence):
+  x = nltk.word_tokenize(sentence)
+  pos = nltk.pos_tag(x)
+  return pos
 
 def load_trigger_data(filename):
   res = []
@@ -51,8 +56,8 @@ def load_trigger_data(filename):
           if (lists[i][2] == trigger):
             string5.append(convert_list_5_to_string5(lists[i]))
             check_trigger.append("trigger")
-            string5.append(convert_list_5_to_string5(lists[1]))
-            check_trigger.append("not trigger")
+            # string5.append(convert_list_5_to_string5(lists[2]))
+            # check_trigger.append("not trigger")
           # else:
           #   check_trigger.append("not trigger")
     d = {"string5":string5, "check_trigger": check_trigger}
@@ -140,22 +145,21 @@ def create_model():
     fit1(X_train, y_train)
     print "Done"
 
-if __name__ == '__main__':
-    mode = ' '.join(sys.argv[1:])
+# if __name__ == '__main__':
+#     mode = ' '.join(sys.argv[1:])
 
-    if mode == "train":
-        train_main()
+#     if mode == "train":
+#         train_main()
 
-    elif mode == "model":
-        create_model()
+#     elif mode == "model":
+#         create_model()
 
-    elif mode == "custom_input":
-        mes = raw_input("Custom input: ")
-        kq = predict_ex(mes)
-        print "Result: " + kq
-    else:
-        print "Error argument!"
+#     elif mode == "custom_input":
+#         mes = raw_input("Custom input: ")
+#         kq = predict_ex(mes)
+#         print "Result: " + kq
+#     else:
+        # print "Error argument!"
 
 # print load_trigger_data('get_data/trigger_event_data.txt')
 # print make_list_from_string("i have a question now")
-
