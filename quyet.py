@@ -44,21 +44,38 @@ def get_pos_from_sentence(sentence):
   pos = nltk.pos_tag(x)
   return pos
 
+def short_lists(lists):
+  ignore_pos_list = ["DT", "WRB", "WP", "CD", "PRP", "POS", "CC"]
+  index = []
+  for i in range(len(lists)):
+    main_word = lists[i][2]
+    if get_pos_from_sentence(main_word)[0][1] in ignore_pos_list:
+      index.append(i)
+  short_lists = np.delete(lists, index, 0)
+  return short_lists
+
+def random_index(lists, i):
+
+
 def load_trigger_data(filename):
   res = []
   string5 = []; check_trigger = []
+
   with open(filename, 'r') as f:
     for line in f:
       if line != "\n":
         trigger, content = line.split("|")
         lists = make_lists_from_string(content)
+        lists = short_lists(lists)
         for i in range(len(lists)):
-          if (lists[i][2] == trigger):
+          main_word = lists[i][2]
+          if (main_word == trigger):
             string5.append(convert_list_5_to_string5(lists[i]))
             check_trigger.append("trigger")
-            # string5.append(convert_list_5_to_string5(lists[2]))
+            # string5.append(convert_list_5_to_string5(lists[i+1]))
             # check_trigger.append("not trigger")
           # else:
+          #   string5.append(convert_list_5_to_string5(lists[i]))
           #   check_trigger.append("not trigger")
     d = {"string5":string5, "check_trigger": check_trigger}
     train = pd.DataFrame(d)
@@ -161,5 +178,6 @@ def create_model():
 #     else:
         # print "Error argument!"
 
-# print load_trigger_data('get_data/trigger_event_data.txt')
-# print make_list_from_string("i have a question now")
+print load_trigger_data('get_data/trigger_event_data.txt')
+# print make_lists_from_string("I have 9 pens and in the morning i will ")
+# print get_pos_from_sentence("I have a pen and")
