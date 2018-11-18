@@ -1,3 +1,4 @@
+# -*- encoding: utf8 -*-
 import re
 import numpy as np
 from sklearn.externals import joblib
@@ -11,6 +12,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 import nltk
+from random import randint
 
 def time_diff_str(t1, t2):
   if (t2 < t1):
@@ -39,6 +41,13 @@ def convert_list_5_to_string5(list5):
         string = string + " "
   return string
 
+def get_list_pos_from_sentence(sentence):
+  pos = get_pos_from_sentence(sentence)
+  list_pos = []
+  for i in range(len(pos)):
+    list_pos.append(pos[i][1])
+  return list_pos
+
 def get_pos_from_sentence(sentence):
   x = nltk.word_tokenize(sentence)
   pos = nltk.pos_tag(x)
@@ -55,11 +64,25 @@ def short_lists(lists):
   return short_lists
 
 def random_index(lists, i):
+  n = len(lists)
+  j = randint(0, n-1)
+  while j == i:
+    j = randint(0, n-1)
+  return j
 
+def check_word_in_dict(word, filename):
+  with open(filename, 'r') as f:
+    data = f.read().replace('\n', ' ')
+  list_words = data.split()
+  if word in list_words:
+    return 1
+  else:
+    return 0
 
 def load_trigger_data(filename):
   res = []
-  string5 = []; check_trigger = []
+  check_trigger = []; string5 = []; main_word_pos_list = []; main_word_pos_in_dict = [];
+  full_word_pos = []; main_word_in_dict = []
 
   with open(filename, 'r') as f:
     for line in f:
@@ -71,44 +94,60 @@ def load_trigger_data(filename):
           main_word = lists[i][2]
           if (main_word == trigger):
             string5.append(convert_list_5_to_string5(lists[i]))
-            check_trigger.append("trigger")
-            # string5.append(convert_list_5_to_string5(lists[i+1]))
-            # check_trigger.append("not trigger")
-          # else:
-          #   string5.append(convert_list_5_to_string5(lists[i]))
-          #   check_trigger.append("not trigger")
-    d = {"string5":string5, "check_trigger": check_trigger}
+            check_trigger.append("1")
+            main_word_pos = get_pos_from_sentence(main_word)[0][1]
+            main_word_pos_list.append(main_word_pos)
+            main_word_pos_in_dict.append(check_word_in_dict(main_word_pos, "get_data/list_pos.txt"))
+            main_word_in_dict.append(check_word_in_dict(main_word, "get_data/dictionary.txt"))
+            full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[i])))
+
+            j = random_index(lists, i) #random index
+            random_main_word = lists[j][2]
+
+            string5.append(convert_list_5_to_string5(lists[j]))
+            check_trigger.append("0")
+            random_main_word_pos = get_pos_from_sentence(random_main_word)[0][1]
+            main_word_pos_list.append(random_main_word_pos)
+            main_word_pos_in_dict.append(check_word_in_dict(random_main_word_pos, "get_data/list_pos.txt"))
+            main_word_in_dict.append(check_word_in_dict(random_main_word, "get_data/dictionary.txt"))
+            full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[j])))
+
+    d = {"string5":string5, "check_trigger": check_trigger, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict}
     train = pd.DataFrame(d)
+    train.pos = pd.Categorical(train.pos)    #change pos to int
+    train['pos'] = train.pos.cat.codes
   return train
 
-
 def train_main():
-    vectorizer = TfidfVectorizer(ngram_range=(1, 1), max_df=0.7, min_df=2, max_features=None)
-    train = load_trigger_data('get_data/trigger_event_data.txt')
-
-    print "Data dimensions:", train.shape
-    print "List features:", train.columns.values
-
-    train_string5 = train["string5"].values
-
-    vectorizer.fit(train_string5)
-    X_train = vectorizer.transform(train_string5)
-    X_train = X_train.toarray()
-    y_train = train["check_trigger"]
-    print X_train
-
-    print "---------------------------"
-    print "Training"
-    print "---------------------------"
-    names = ["RBF SVC"]
     t0 = time.time()
-    # iterate over classifiers
+    vectorizer = CountVectorizer(max_features = 1000)
+    print "Load data..."
+    train = load_trigger_data('general_data/train.txt')
+    test = load_trigger_data('general_data/test.txt')
+
+    print "Train data dimensions:", train.shape
+    print "Test data dimensions:", test.shape
+    print "List features: string5, pos, pos_in_dict, in_dict"
+
+    print "Create vector..."
+    X_train = create_X(train, vectorizer)
+    X_test = create_X(test, vectorizer)
+
+    y_train = train["check_trigger"].values
+    y_test = test["check_trigger"].values
+
+    print "Training vector shape:", X_train.shape
+    print "Test vector shape:", X_test.shape
+
+    print "-----------------------TRAINING-----------------------"
 
     clf = SVC(kernel='rbf', C=500)
     clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
     # print y_pred
-
-    print " %s - Converting completed %s" % (datetime.datetime.now(), time_diff_str(t0, time.time()))
+    print "Training completed in %s" % (time_diff_str(t0, time.time()))
+    print "Accuracy: %0.3f" % accuracy_score(y_test, y_pred)
+    print "Confuse matrix: \n", confusion_matrix(y_test, y_pred, labels=["1", "0"])
 
 def load_model(model):
     print('Loading model ...')
@@ -117,20 +156,18 @@ def load_model(model):
     else:
         return None
 
-def predict_ex(mes):
+def predict_input_sentence(mes):
+    print "Load model..."
     svm = load_model('model/svm.pkl')
     if svm == None:
         training()
+    print "Load vectorizer..."
     vectorizer = load_model('model/vectorizer.pkl')
-    svm = load_model('model/svm.pkl')
-    print "---------------------------"
-    print "Training"
-    print "---------------------------"
 
-    # test_message = list_words(test_message) # lam thanh chu thuong
-    clean_test_reviews = []
-    clean_test_reviews.append(mes)
-    d2 = {"message": clean_test_reviews}
+    string5 = []
+    string5.append(mes)
+    d2 = {"message": string5}
+    #TODO------------------------------------------------------------------------------------
     test = pd.DataFrame(d2)
     test_text = test["message"].values.astype('str')
     test_data_features = vectorizer.transform(test_text)
@@ -139,45 +176,51 @@ def predict_ex(mes):
     s = svm.predict(test_data_features)[0]
     return s
 
-def fit1(X_train,y_train):
+def fit_SVM(X_train,y_train):
     svm = SVC(kernel='rbf', C=1000)
     svm.fit(X_train, y_train)
     joblib.dump(svm, 'model/svm.pkl')
 
+def create_X(mode, vectorizer):
+    train_string5 = mode["string5"].values
+    string5_vectorizer = vectorizer.fit_transform(train_string5)
+    train_features = mode[["pos", "pos_in_dict", "in_dict"]].values
+    a = string5_vectorizer.toarray()
+    X_train = np.concatenate((a, train_features[:None]), axis=1)
+    return X_train
+
 def create_model():
-    vectorizer = TfidfVectorizer(ngram_range=(1, 1), max_df=0.7, min_df=2, max_features=1000)
+    t0 = time.time()
+    vectorizer = CountVectorizer(max_features = 1000)
 
     print "Load data..."
-    train = load_trigger_data('get_data/trigger_event_data.txt')
+    train = load_trigger_data('general_data/train.txt')
 
-    print "Data dimensions:", train.shape
-    print "List features:", train.columns.values
-
-    train_string5 = train["string5"].values
-    vectorizer.fit(train_string5)
-    X_train = vectorizer.transform(train_string5)
-    X_train = X_train.toarray()
-    y_train = train["check_trigger"]
+    X_train = create_X(train, vectorizer)
+    print "X_train:"
+    print X_train
+    y_train = train["check_trigger"].values
+    print "y_train:"
+    print y_train
     joblib.dump(vectorizer, 'model/vectorizer.pkl')
-    fit1(X_train, y_train)
-    print "Done"
+    fit_SVM(X_train, y_train)
+    print "Model has been created, completed in %s" % (time_diff_str(t0, time.time()))
 
-# if __name__ == '__main__':
-#     mode = ' '.join(sys.argv[1:])
+if __name__ == '__main__':
+    mode = ' '.join(sys.argv[1:])
 
-#     if mode == "train":
-#         train_main()
+    if mode == "train":
+        train_main()
 
-#     elif mode == "model":
-#         create_model()
+    elif mode == "model":
+        create_model()
 
-#     elif mode == "custom_input":
-#         mes = raw_input("Custom input: ")
-#         kq = predict_ex(mes)
-#         print "Result: " + kq
-#     else:
-        # print "Error argument!"
+    elif mode == "custom_input":
+        mes = raw_input("Input list 5 word: ")
+        result = predict_input_sentence(mes)
+        print "Result: " + result
+    else:
+        print "Error argument!"
 
-print load_trigger_data('get_data/trigger_event_data.txt')
-# print make_lists_from_string("I have 9 pens and in the morning i will ")
-# print get_pos_from_sentence("I have a pen and")
+# print load_trigger_data("get_data/trigger_event_data.txt")
+# create_model()
