@@ -447,7 +447,7 @@ aid|White House spokesman Ari Fleischer blamed Saddam Hussein's regime for slowi
 sending|The British said they had enough control over the area to begin sending in ships
 moved|A British ship, the Sir Galahad, moved into position at the mouth of the Khor Abdallah river Tuesday night with 211 tons of food and 101 tons of bottled water
 journey|It was to begin the six-hour journey into Umm Qasr on Wednesday, according to a pool report
-war|The World Food Program, a U.N. agency, said it would make its biggest single request for cash in its history	_  more than US$1 billion to help feed the war-stricken nation for about six months
+war|The World Food Program, a U.N. agency, said it would make its biggest single request for cash in its history  _  more than US$1 billion to help feed the war-stricken nation for about six months
 war|Before the war, Iraqis depended on government rations distributed under the U.N.'s oil-for-food program
 war|The war has thrown the future of that program in doubt
 war|Because the United States and Britain failed to get U.N. backing for the war, Russia, France, Germany and China want to ensure that the immediate humanitarian costs of the war are paid by the United States  _  and not the United Nations
@@ -559,11 +559,10 @@ fighting|The fighting broke out between club-wielding members of the former rule
 met|International experts, appalled at the looting of Iraqi historical artifacts, met in Paris under U.N. auspices and called for a temporary embargo on Iraqi cultural objects
 meeting|Some of the participants at the meeting said it appeared the looting was organized, and some of those involved had keys to museum vaults and were able to remove items from safes
 meeting|I don't think we'll discover anything, myself,'' Rumsfeld said at a meeting with Pentagon employees
-been|A U.S. intelligence official, speaking on condition of anonymity, said Barzan Ibrahim had been a presidential adviser to Saddam's regime since 1998, but had a shaky relationship with his half brother and was not part of the regime's inner circle
 was|He was a representative to the United Nations in Geneva from 1989 to 1998
-protests|Marines broke it up  _	over the protests of Iraqis not involved in the robbery  _	and the thieves were arrested
+protests|Marines broke it up  _ over the protests of Iraqis not involved in the robbery  _  and the thieves were arrested
 riot|As word spread that the robbery was under way, Iraqis gathered, saying they had accounts at the branch, and a riot broke out
-arrested|Marines broke it up  _	over the protests of Iraqis not involved in the robbery  _	and the thieves were arrested
+arrested|Marines broke it up  _ over the protests of Iraqis not involved in the robbery  _  and the thieves were arrested
 visit|Gen. Tommy Franks, the commander of Operation Iraqi Freedom, told reporters during a visit to Kuwait that ``the looting goes down every day and I think you will continue to see it go down because the Iraqis are now stepping up and controlling the problems for themselves
 collapsed|Still, more than a week after the regime collapsed, Marine Staff Sgt. Jose Guillen said power has been restored  _  by use of diesel plants  _  to only about 500 homes in Baghdad, a city of roughly 5 million
 headed|Earlier, from 1979 to 1983, he headed Iraq's Mukhabarat, or intelligence service, a period when the organization arranged executions of regime opponents in Iraq and overseas, the official said
@@ -627,11 +626,11 @@ disembark|Immigration and Checkpoints Authority spokeswoman Ngoon Pei Ling said 
 wed|Rudolph Giuliani will wed his companion, Judith Nathan, on May 24 in the ex-mayor's old home, Gracie Mansion
 ceremony|His successor, Mayor Michael Bloomberg, will perform the ceremony
 nuptials|The Giuliani-Nathan nuptials will be a first for Bloomberg, who is making an exception from his policy of not performing weddings, said Bloomberg spokesman Ed Skyler
-trip|Giuliani, 58, proposed to Nathan, a former nurse, during a November business trip to Paris	_  five months after he finalized his divorce from Donna Hanover after 20 years of marriage
-divorce|Giuliani, 58, proposed to Nathan, a former nurse, during a November business trip to Paris	_  five months after he finalized his divorce from Donna Hanover after 20 years of marriage
+trip|Giuliani, 58, proposed to Nathan, a former nurse, during a November business trip to Paris _  five months after he finalized his divorce from Donna Hanover after 20 years of marriage
+divorce|Giuliani, 58, proposed to Nathan, a former nurse, during a November business trip to Paris  _  five months after he finalized his divorce from Donna Hanover after 20 years of marriage
 divorce|During the legal proceedings leading up to the divorce, a judge ruled that Nathan could not visit Gracie Mansion, the official mayoral residence, as long as Giuliani's children lived there
 divorce|The divorce settlement called for Giuliani to pay Hanover more than $6.8 million
-marriage|Giuliani, 58, proposed to Nathan, a former nurse, during a November business trip to Paris	_  five months after he finalized his divorce from Donna Hanover after 20 years of marriage
+marriage|Giuliani, 58, proposed to Nathan, a former nurse, during a November business trip to Paris _  five months after he finalized his divorce from Donna Hanover after 20 years of marriage
 attack|In interviews last year, Giuliani said Nathan gave him ``tremendous emotional support'' through his treatment for prostate cancer and as he led the city during the aftermath of the Sept. 11 terrorist attack on the World Trade Center
 pay|The divorce settlement called for Giuliani to pay Hanover more than $6.8 million
 wedding|Last month, she and her fiance  _  an old high school sweetheart  _  invited the press along as they went shopping for wedding bands, saying they are planning a wedding in the New York City area this summer
@@ -970,7 +969,6 @@ meeting|They also said that the EU was closely following the nuclear issue and w
 meeting|A statement issued at the two-day meeting of the EU foreign ministers called on Iran to conclude and implement urgently and unconditionally an additional protocol to the Nuclear Non- Proliferation Treaty allowing for short-notice inspections of suspected nuclear sites in the country
 new|Please take some time next week to welcome a new staff member for Landmark Education in Houston
 be|She will be the Registration Manager for the Houston Center, accountable for causing registrations into the Landmark Forum
-been|Her name is Janine Beck, she is from Tucson, AZ, and she most recently has been the team leader for Landmark Education programs in Tucson (the title is Source Person
 forum|She will be the Registration Manager for the Houston Center, accountable for causing registrations into the Landmark Forum
 married|If you are married, your marriage is about making a difference in the world
 drop|Please take a few moments to drop her a note (I do not have an email address for her
@@ -1277,7 +1275,6 @@ arrive|You might want to drop off the car somewhere near Red Bank, or as soon as
 go|The main reason I'd like to goto Toronto and Niagara Falls is mainly because it's so close
 go|The main reason I'd like to goto Toronto and Niagara Falls is mainly because it's so close
 leave|Leave Niagara Falls and drive to Red Bank, NY - 435 miles
-been|I live in Austin, Tx, and being one who's only been as far as Nashville, Tn two friends and I are planning a trip to New England for a week
 trip|I live in Austin, Tx, and being one who's only been as far as Nashville, Tn two friends and I are planning a trip to New England for a week
 take|Then you could take the train or bus back to Boston
 take|Then you could take the train or bus back to Boston
@@ -1717,7 +1714,6 @@ meet|Do you travel to meet up with family or friends during the holidays
 go|Where do you go and who do you visit
 visit|Where do you go and who do you visit
 comes|I have a sister in Ohio, she usually comes in
-been|I've been to your lovely state once before, down in the hollers
 go|we go to my niece's house and
 goes|My son goes to his in-laws, but my two girls will come and
 come|My kids, uh, kids and their kids come, all but one of them
@@ -2171,7 +2167,6 @@ war|That means stocks were up today on Wall Street as they look at the progress 
 put|And besides, as soon as you get control of it you'd be able to start using it for air operations, and put a survey team in there as soon as it's secured, and then start using it for helicopter operations, haul forward some big bladders of fuel to refuel helicopters and rearm them and things like that
 retired|Colonel Patrick Lang, retired, United states Army, thanks for your insights
 retired|He's retired with the United States Army
-been|A man who has been to Baghdad many times and can tell us with great knowledge exactly what it's going to be like to fight on those avenues in that sprawling city of Baghdad - Judy
 fighting|But American troops and their superior technology have turned out to be a key factor in the fighting there
 invading|There is much fear here of the Saddam loyalists who still hold sway in Basra and of the invading troops waiting at the gates
 march|As coalition forces push ahead in their march toward Baghdad, they have encountered some resistance in the Shiite holy city of Karbala
@@ -3203,10 +3198,4 @@ drop|we had f-14 aircraft drop laser-guided bombs, f-18s drop joint direct attac
 strikes|we had f-14 aircraft drop laser-guided bombs, f-18s drop joint direct attack munitions or j-dam weapons into eastern afghanistan today this is the first of an unknown number of strikes we'll conduct during our watch in "operation enduring freedom
 dropped|the fighter jets dropped their ordnance in a coordinated atack on a convoy near the afghan city of choft
 atack|the fighter jets dropped their ordnance in a coordinated atack on a convoy near the afghan city of choft
-attack|there was an attack on a convoy of leadership that was identified through various intelligence means
-strikes|but the strikes prove controversial
-dropped|we have dropped ordnance today
-hurting|the consequence of injuring or hurting someone who is friendly or nonparticipant in combat is very difficult to deal with
-injuring|the consequence of injuring or hurting someone who is friendly or nonparticipant in combat is very difficult to deal with
-drop|and i'm sure we'll continue to drop ordnance
-war|and no one knows how long america's new war on terrorism will keep the "uss john c. stennis" engaged in battle
+

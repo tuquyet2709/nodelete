@@ -1,3 +1,10 @@
+attack|there was an attack on a convoy of leadership that was identified through various intelligence means
+strikes|but the strikes prove controversial
+dropped|we have dropped ordnance today
+hurting|the consequence of injuring or hurting someone who is friendly or nonparticipant in combat is very difficult to deal with
+injuring|the consequence of injuring or hurting someone who is friendly or nonparticipant in combat is very difficult to deal with
+drop|and i'm sure we'll continue to drop ordnance
+war|and no one knows how long america's new war on terrorism will keep the "uss john c. stennis" engaged in battle
 war|on highest alert as a carrier at war
 war|adrenaline is high on the flight deck of this carrier at war
 terrorism|and no one knows how long america's new war on terrorism will keep the "uss john c. stennis" engaged in battle
@@ -540,7 +547,6 @@ nominate|I nominate John K. for Virginia's first poet laureate
 eliminated|Back in 1996, budget cuts eliminated the job of State Archaeologist
 last|The last State Archaeologist, Catherine Slusser, is still around, according to the article, serving the Department of Historical Resources
 creation|Virginia is apparently going to be build a data center in Richmond, a back-up data center, and a help desk/call center as a follow-on to the creation of VITA, the Virginia Information Technology Agency
-been|Barnie, have you ever been to the National Conservation and Training Center near Shepherdstown, WVA
 visited|That's the only Byrd pork project I have ever visited
 passed|When the chain passed from its private owners a few years ago, problems began
 acquired|These problems multiplied when the New England chain Stop n' Shop acquired Giant

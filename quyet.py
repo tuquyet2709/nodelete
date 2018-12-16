@@ -120,7 +120,7 @@ def load_trigger_data(filename):
 
 def train_main():
     t0 = time.time()
-    vectorizer = CountVectorizer(max_features = 1000)
+    vectorizer = CountVectorizer(max_features = 5)
     print "Load data..."
     train = load_trigger_data('general_data/train.txt')
     test = load_trigger_data('general_data/test.txt')
@@ -157,6 +157,7 @@ def load_model(model):
         return None
 
 def predict_input_sentence(mes):
+    vectorizer_pred = CountVectorizer(max_features = 5)
     print "Load model..."
     svm = load_model('model/svm.pkl')
     if svm == None:
@@ -164,34 +165,49 @@ def predict_input_sentence(mes):
     print "Load vectorizer..."
     vectorizer = load_model('model/vectorizer.pkl')
 
-    string5 = []
-    string5.append(mes)
-    d2 = {"message": string5}
-    #TODO------------------------------------------------------------------------------------
-    test = pd.DataFrame(d2)
-    test_text = test["message"].values.astype('str')
-    test_data_features = vectorizer.transform(test_text)
-    test_data_features = test_data_features.toarray()
-    # print test_data_features
-    s = svm.predict(test_data_features)[0]
-    return s
+    string5 = []; main_word_pos_list = []; main_word_pos_in_dict = [];
+    full_word_pos = []; main_word_in_dict = []
+
+    lists = make_lists_from_string(mes)
+    # lists = short_lists(lists)
+    for i in range(len(lists)):
+      main_word = lists[i][2]
+      string5.append(convert_list_5_to_string5(lists[i]))
+      main_word_pos = get_pos_from_sentence(main_word)[0][1]
+      main_word_pos_list.append(main_word_pos)
+      main_word_pos_in_dict.append(check_word_in_dict(main_word_pos, "get_data/list_pos.txt"))
+      main_word_in_dict.append(check_word_in_dict(main_word, "get_data/dictionary.txt"))
+      full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[i])))
+
+    d2 = {"string5":string5, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict}
+
+    pred = pd.DataFrame(d2)
+    pred.pos = pd.Categorical(pred.pos)
+    pred['pos'] = pred.pos.cat.codes
+    X = create_X(pred, vectorizer_pred)
+    for i in range(len(X)):
+      print "---------------------------------------------"
+      print lists[i]
+      print X[i]
+      s = svm.predict([X[i]])
+      print "=> "+ s[0]
 
 def fit_SVM(X_train,y_train):
-    svm = SVC(kernel='rbf', C=1000)
-    svm.fit(X_train, y_train)
-    joblib.dump(svm, 'model/svm.pkl')
+  svm = SVC(kernel='rbf', C=1000)
+  svm.fit(X_train, y_train)
+  joblib.dump(svm, 'model/svm.pkl')
 
 def create_X(mode, vectorizer):
-    train_string5 = mode["string5"].values
-    string5_vectorizer = vectorizer.fit_transform(train_string5)
-    train_features = mode[["pos", "pos_in_dict", "in_dict"]].values
-    a = string5_vectorizer.toarray()
-    X_train = np.concatenate((a, train_features[:None]), axis=1)
-    return X_train
+  train_string5 = mode["string5"].values
+  string5_vectorizer = vectorizer.fit_transform(train_string5)
+  train_features = mode[["pos", "pos_in_dict", "in_dict"]].values
+  a = string5_vectorizer.toarray()
+  X_train = np.concatenate((a, train_features[:None]), axis=1)
+  return X_train
 
 def create_model():
     t0 = time.time()
-    vectorizer = CountVectorizer(max_features = 1000)
+    vectorizer = CountVectorizer(max_features = 5)
 
     print "Load data..."
     train = load_trigger_data('general_data/train.txt')
@@ -206,21 +222,22 @@ def create_model():
     fit_SVM(X_train, y_train)
     print "Model has been created, completed in %s" % (time_diff_str(t0, time.time()))
 
-if __name__ == '__main__':
-    mode = ' '.join(sys.argv[1:])
+# if __name__ == '__main__':
+#     mode = ' '.join(sys.argv[1:])
 
-    if mode == "train":
-        train_main()
+#     if mode == "train":
+#         train_main()
 
-    elif mode == "model":
-        create_model()
+#     elif mode == "model":
+#         create_model()
 
-    elif mode == "custom_input":
-        mes = raw_input("Input list 5 word: ")
-        result = predict_input_sentence(mes)
-        print "Result: " + result
-    else:
-        print "Error argument!"
+#     elif mode == "custom_input":
+#         mes = raw_input("Input list 5 word: ")
+#         predict_input_sentence(mes)
+#     else:
+#         print "Error argument!"
 
 # print load_trigger_data("get_data/trigger_event_data.txt")
 # create_model()
+
+print get_pos_from_sentence("The leaders held a meeting  in Beijing")
