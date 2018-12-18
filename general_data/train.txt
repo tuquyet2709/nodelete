@@ -559,7 +559,6 @@ fighting|The fighting broke out between club-wielding members of the former rule
 met|International experts, appalled at the looting of Iraqi historical artifacts, met in Paris under U.N. auspices and called for a temporary embargo on Iraqi cultural objects
 meeting|Some of the participants at the meeting said it appeared the looting was organized, and some of those involved had keys to museum vaults and were able to remove items from safes
 meeting|I don't think we'll discover anything, myself,'' Rumsfeld said at a meeting with Pentagon employees
-was|He was a representative to the United Nations in Geneva from 1989 to 1998
 protests|Marines broke it up  _ over the protests of Iraqis not involved in the robbery  _  and the thieves were arrested
 riot|As word spread that the robbery was under way, Iraqis gathered, saying they had accounts at the branch, and a riot broke out
 arrested|Marines broke it up  _ over the protests of Iraqis not involved in the robbery  _  and the thieves were arrested
@@ -955,7 +954,6 @@ charges|Estrada, who was ousted in a military-backed popular revolt in January 2
 charges|This is an old tune as far as the Palace is concerned," Tiglao said hours after Estrada petitioned the anti-graft court, the Sandiganbayan, to dismiss the government charges against him, citing "lack of jurisdiction" since he was still the president
 hearing|The Sandiganbayan Special Division Friday reset for June 16 the resumption of Estrada's plunder case hearing, which was originally scheduled for June 2
 detained|Estrada, who was ousted in a military-backed popular revolt in January 2001, has been detained for almost two years at the Veterans Memorial Medical Center in Metro Manila on plunder charges
-was|Kostelka, 52, was first deputy defense minister and an ex- general
 resignation|At the end of last month, Tvrdik submitted his resignation in protest against planned cuts in defense spending as part of the government's finance reforms
 resigned|Czech President Vaclav Klaus on Monday appointed Miroslav Kostelka as the country's new defense minister to replace Jaroslav Tvrdik who resigned from the post in late May
 quit|Tvrdik, who took over the defense ministry in May 2001, also announced that he would quit his post in the parliament and give up his position in the ruling party Social Democrats
@@ -1479,7 +1477,6 @@ appointed|Who are they, and why do you think they should be appointed
 appoint|If you were president, which national figures would you appoint to your cabinet and why
 resigned|And the one that, oh what's the -- the guy that, um -- Tom Ridge just re- resigned yesterday
 went|Well, the homeless people -- I guess, they need their shopping cart, so they kind of went elsewhere, so -- um -- I mean it's a small thing,  but it was, they just figured out, they were -- you know, uh -- learning from experience on what they need to do in the -- city and -- I think he would be a good -- candidate for the Homeland Security,  running that
-was|Um -- like, uh -- well, it was -- Colin Powell was Secretary, was he Secretary of State
 election|Uh, do you think there is uh -- some other, uh like -- positions has to be has been -- has to be created, like uh -- for the next election
 elected|President Bush has just been elected to another term in office, and he has already started to appoint new people to his political cabinet as current members like Colin Powell and John Ashcroft resign
 resign|President Bush has just been elected to another term in office, and he has already started to appoint new people to his political cabinet as current members like Colin Powell and John Ashcroft resign
@@ -3198,4 +3195,7 @@ drop|we had f-14 aircraft drop laser-guided bombs, f-18s drop joint direct attac
 strikes|we had f-14 aircraft drop laser-guided bombs, f-18s drop joint direct attack munitions or j-dam weapons into eastern afghanistan today this is the first of an unknown number of strikes we'll conduct during our watch in "operation enduring freedom
 dropped|the fighter jets dropped their ordnance in a coordinated atack on a convoy near the afghan city of choft
 atack|the fighter jets dropped their ordnance in a coordinated atack on a convoy near the afghan city of choft
+attack|there was an attack on a convoy of leadership that was identified through various intelligence means
+strikes|but the strikes prove controversial
+dropped|we have dropped ordnance today
 

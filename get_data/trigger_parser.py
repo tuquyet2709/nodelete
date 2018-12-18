@@ -33,7 +33,7 @@ def read_data(file_path):
                     trigger = anchor.find('charseq').text
                     trigger = trigger.lower().replace('\n',' ')
                     if len(trigger.split()) == 1:
-                        if ((trigger != "it") and(trigger != "its") and (trigger != "this") and (trigger != "one") and (trigger != "them") and (trigger != "q&a") and (trigger != "it") and (trigger != "ex") and (trigger != "when") and (trigger != "out") and (trigger != "that") and (trigger != "will") and (trigger != "what") and (trigger != "been")):
+                        if ((trigger != "it") and(trigger != "its") and (trigger != "this") and (trigger != "one") and (trigger != "them") and (trigger != "q&a") and (trigger != "it") and (trigger != "ex") and (trigger != "when") and (trigger != "out") and (trigger != "that") and (trigger != "will") and (trigger != "what") and (trigger != "last") and (trigger != "was") and (trigger != "been")):
                             fo.write(trigger + '|'+ content+'\n')
                             ft.write(trigger + '|')
         except IOError:

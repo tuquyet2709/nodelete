@@ -254,7 +254,6 @@ verdict
 captured
 steamed
 executions
-was
 riot
 collapsed
 headed
@@ -785,7 +784,6 @@ represent
 negotiating
 nominate
 eliminated
-last
 creation
 passed
 emailed
