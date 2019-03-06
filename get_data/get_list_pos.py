@@ -1,7 +1,12 @@
 import nltk
 
+def get_pos_from_sentence(sentence):
+  x = nltk.word_tokenize(sentence)
+  pos = nltk.pos_tag(x)
+  return pos
+
 def get_list_pos():
-  with open('get_data/dictionary.txt', 'r') as fp:
+  with open('dictionary.txt', 'r') as fp:
    line = fp.readline()
    cnt = 1
    listo = []
@@ -13,3 +18,5 @@ def get_list_pos():
       line = fp.readline()
       cnt += 1
    print listo
+
+get_list_pos()

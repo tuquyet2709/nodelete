@@ -185,7 +185,7 @@ def get_front_word(sentence, word):
 def get_trigger_from_lever(pred_list): #top 1, top 2,...
   top1 = ["killed", "death", "war", "meeting", "died", "attack", "trial"] #>50 times
   top2 = ["fighting", "attacks", "election", "convicted", "arrested", "appeal", "sentence", "elections", "charges", "former"
-  , "go", "fire", "former"] #30-40 times
+  , "go", "fire", "former"] #30-50 times
   top3 = ["injured", "dead", "pay", "sentenced", "bombing", "call", "charged", "divorce", "shot", "talks", "die"
   , "kill", "battle", "hit", "fired", "fight", "killing", "strike", "terrorism", "come", "bankruptcy", "combat"] #20-30 times
 
@@ -344,6 +344,5 @@ if __name__ == '__main__':
       print "Error argument!"
 
 # print load_trigger_data("get_data/trigger_event_data.txt")
-# create_model()
 
 # print get_pos_from_sentence("The leaders held a meeting  in Beijing")
