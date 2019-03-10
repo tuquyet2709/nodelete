@@ -79,9 +79,24 @@ def check_word_in_dict(word, filename):
   else:
     return 0
 
+def is_number(word):
+  if word.isdigit():
+    return 1
+  else:
+    return 0
+
+def is_caps(word):
+  if word == "":
+    return 0
+  if word[0].isupper():
+    return 1
+  else:
+    return 0
+
 def load_trigger_data(filename):
   res = []
   check_trigger = []; string5 = []; main_word_pos_list = []; main_word_pos_in_dict = [];
+  num1 = []; caps1 = []; num2 = []; caps2 = []; num3 = []; caps3 = []; num4 = []; caps4 = []; num5 = []; caps5 = [];
   full_word_pos = []; main_word_in_dict = []
 
   with open(filename, 'r') as f:
@@ -100,6 +115,17 @@ def load_trigger_data(filename):
             main_word_pos_in_dict.append(check_word_in_dict(main_word_pos, "get_data/list_pos.txt"))
             main_word_in_dict.append(check_word_in_dict(main_word, "get_data/dictionary.txt"))
             full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[i])))
+            num1.append(is_number(lists[i][0]))
+            caps1.append(is_caps(lists[i][0]))
+            num2.append(is_number(lists[i][1]))
+            caps2.append(is_caps(lists[i][1]))
+            num3.append(is_number(lists[i][2]))
+            caps3.append(is_caps(lists[i][2]))
+            num4.append(is_number(lists[i][3]))
+            caps4.append(is_caps(lists[i][3]))
+            num5.append(is_number(lists[i][4]))
+            caps5.append(is_caps(lists[i][4]))
+
 
             j = random_index(lists, i) #random index
             random_main_word = lists[j][2]
@@ -111,8 +137,18 @@ def load_trigger_data(filename):
             main_word_pos_in_dict.append(check_word_in_dict(random_main_word_pos, "get_data/list_pos.txt"))
             main_word_in_dict.append(check_word_in_dict(random_main_word, "get_data/dictionary.txt"))
             full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[j])))
+            num1.append(is_number(lists[j][0]))
+            caps1.append(is_caps(lists[j][0]))
+            num2.append(is_number(lists[j][1]))
+            caps2.append(is_caps(lists[j][1]))
+            num3.append(is_number(lists[j][2]))
+            caps3.append(is_caps(lists[j][2]))
+            num4.append(is_number(lists[j][3]))
+            caps4.append(is_caps(lists[j][3]))
+            num5.append(is_number(lists[j][4]))
+            caps5.append(is_caps(lists[j][4]))
 
-    d = {"string5":string5, "check_trigger": check_trigger, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict}
+    d = {"string5":string5, "check_trigger": check_trigger, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict, "num1": num1, "caps1": caps1, "num2": num2, "caps2": caps2, "num3": num3, "caps3": caps3, "num4": num4, "caps4": caps4, "num5": num5, "caps5": caps5}
     train = pd.DataFrame(d)
     train.pos = pd.Categorical(train.pos)    #change pos to int
     train['pos'] = train.pos.cat.codes
@@ -262,6 +298,7 @@ def predict_input_sentence(mes):
   vectorizer = load_model('model/vectorizer.pkl')
 
   string5 = []; main_word_pos_list = []; main_word_pos_in_dict = [];
+  num1 = []; caps1 = []; num2 = []; caps2 = []; num3 = []; caps3 = []; num4 = []; caps4 = []; num5 = []; caps5 = [];
   full_word_pos = []; main_word_in_dict = []
 
   lists = make_lists_from_string(mes)
@@ -274,8 +311,18 @@ def predict_input_sentence(mes):
     main_word_pos_in_dict.append(check_word_in_dict(main_word_pos, "get_data/list_pos.txt"))
     main_word_in_dict.append(check_word_in_dict(main_word, "get_data/dictionary.txt"))
     full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[i])))
+    num1.append(is_number(lists[i][0]))
+    caps1.append(is_caps(lists[i][0]))
+    num2.append(is_number(lists[i][1]))
+    caps2.append(is_caps(lists[i][1]))
+    num3.append(is_number(lists[i][2]))
+    caps3.append(is_caps(lists[i][2]))
+    num4.append(is_number(lists[i][3]))
+    caps4.append(is_caps(lists[i][3]))
+    num5.append(is_number(lists[i][4]))
+    caps5.append(is_caps(lists[i][4]))
 
-  d2 = {"string5":string5, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict}
+  d2 = {"string5":string5, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict, "num1": num1, "caps1": caps1, "num2": num2, "caps2": caps2, "num3": num3, "caps3": caps3, "num4": num4, "caps4": caps4, "num5": num5, "caps5": caps5}
 
   pred = pd.DataFrame(d2)
   pred.pos = pd.Categorical(pred.pos)
@@ -306,7 +353,7 @@ def fit_SVM(X_train,y_train):
 def create_X(mode, vectorizer):
   train_string5 = mode["string5"].values
   string5_vectorizer = vectorizer.fit_transform(train_string5)
-  train_features = mode[["pos", "pos_in_dict", "in_dict"]].values
+  train_features = mode[["pos", "pos_in_dict", "in_dict", "num1", "num2", "num3", "num4", "num5", "caps1", "caps2", "caps3", "caps4", "caps5"]].values
   a = string5_vectorizer.toarray()
   X_train = np.concatenate((a, train_features[:None]), axis=1)
   return X_train
