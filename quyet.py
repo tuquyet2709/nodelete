@@ -14,6 +14,10 @@ from sklearn.metrics import confusion_matrix
 import nltk
 from random import randint
 
+from nltk.parse.stanford import StanfordDependencyParser
+os.environ['CLASSPATH'] = '/home/tuquyet/GR/stanford-parser-full-2018-10-17/stanford-parser.jar'
+os.environ['STANFORD_MODELS'] = '/home/tuquyet/GR/stanford-parser-full-2018-10-17/stanford-parser-3.9.2-models.jar'
+
 def time_diff_str(t1, t2):
   if (t2 < t1):
     return "error"
@@ -69,6 +73,23 @@ def random_index(lists, i):
   while j == i:
     j = randint(0, n-1)
   return j
+
+# def random_index(lists, i):
+#   n = len(lists)
+#   j = (n+i)/2
+#   if j == i:
+#     return i/2
+#   else:
+#     return j
+
+# def random_index(lists, i):
+#   n = len(lists)
+#   if (i == 0) or (i == 1):
+#     return n/2
+#   else:
+#    return i/2
+
+
 
 def check_word_in_dict(word, filename):
   with open(filename, 'r') as f:
@@ -163,7 +184,7 @@ def train_main():
 
   print "Train data dimensions:", train.shape
   print "Test data dimensions:", test.shape
-  print "List features: string5, pos, pos_in_dict, in_dict"
+  print "List features: string5, pos, pos_in_dict, in_dict, num1, num2, num3, num4, num5, caps1, caps2, caps3, caps4, caps5"
 
   print "Create vector..."
   X_train = create_X(train, vectorizer)
@@ -258,7 +279,7 @@ def post_processing(mes, pred_list):
   result = ""
 
   if (len(pred_list) == 1):
-    result = pred_list[0]
+    result = pred_list[0].split()
 
   elif (len(pred_list) == 2):
     for i in range(len(pos)):
@@ -270,23 +291,72 @@ def post_processing(mes, pred_list):
         print pos2
 
     if ((check_verb(pos1) == 1) and ((check_noun(pos2) == 1) or (check_adj(pos2) == 1))): #VERB + NOUN or VERB + ADJ
-      result = pred_list[1]
+      result = pred_list[1].split()
 
     elif ((check_verb(pos1) == 1) and (check_verb(pos2) == 1)): #VERB + VERB
       front_word1 = get_front_word(mes, pred_list[0])
       front_word2 = get_front_word(mes, pred_list[1])
       if front_word1 in ["be", "been", "have", "has", "to", "can", "could", "was", "were"]:
-        result = pred_list[0]
+        result = pred_list[0].split()
       if front_word2 in ["be", "been", "have", "has", "to", "can", "could", "was", "were"]:
-        result = pred_list[1]
+        result = pred_list[1].split()
 
     elif ((check_noun(pos1) == 1) and (check_verb(pos2) == 1)): #NOUN + VERB
-      result = pred_list[0]
+      result = pred_list[0].split()
     else:
       result = get_trigger_from_lever(pred_list)
   else:
     result = get_trigger_from_lever(pred_list)
   return result
+
+def get_word_from_tree(dep, i):
+  root = dep._tree(i).label()
+  leaves = dep._tree(i).leaves()
+  temp = ' '.join(leaves)
+  return temp + " " + root
+
+def dependency_parser(sentence, result):
+  dep_parser=StanfordDependencyParser(model_path="/home/tuquyet/GR/stanford-english-corenlp-2018-10-05-models/edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
+  sub = ""; argument = "";
+  word = result[0]
+  dep = dep_parser.raw_parse(sentence).next()
+
+  if word in sentence:
+    index = sentence.split().index(word) + 1
+    dep.tree().pretty_print()
+    print list(dep.triples())
+
+    while dep._rel(index) != "root":
+      index = dep._hd(index)
+
+    # if dep._rel(index) == "root":
+    node = dep.get_by_address(index)
+    dep_list = node["deps"]
+    if "nsubj" in dep_list.keys():
+      i = dep_list["nsubj"][0]
+      sub = sentence.split()[i - 1]
+      if str(type(dep._tree(i))) != "<type 'unicode'>": #is a tree
+        sub = get_word_from_tree(dep, i)
+      print "Subject : " + sub
+    if "nmod" in dep_list.keys():
+      for j in range(len(dep_list["nmod"])):
+        i = dep_list["nmod"][j]
+        argument = sentence.split()[i - 1]
+        if str(type(dep._tree(i))) != "<type 'unicode'>": #is a tree
+          argument = get_word_from_tree(dep, i)
+        print "Argument : " + argument
+    if "nmod:tmod" in dep_list.keys():
+      for j in range(len(dep_list["nmod:tmod"])):
+        i = dep_list["nmod:tmod"][0]
+        argument = sentence.split()[i - 1]
+        if str(type(dep._tree(i))) != "<type 'unicode'>": #is a tree
+          argument = get_word_from_tree(dep, i)
+        print "Argument : " + argument
+
+  else:
+    print "Error!"
+
+
 
 def predict_input_sentence(mes):
   vectorizer_pred = CountVectorizer(max_features = 5)
@@ -341,8 +411,9 @@ def predict_input_sentence(mes):
   print pred_list
   result = post_processing(mes, pred_list) #hau xu li
   print "================================================="
-  print "TRIGGER: "
+  print "TRIGGER : "
   print result
+  dependency_parser(mes, result)
   print "================================================="
 
 def fit_SVM(X_train,y_train):
