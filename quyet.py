@@ -29,6 +29,7 @@ def time_diff_str(t1, t2):
 def make_lists_from_string(string):
   #a[1][2] de lay phan tu giua
   wordlist = re.sub("[^\w]", " ",string).split()
+  # wordlist = re.split(" ", string)
   wordlist = ["", ""] + wordlist + ["", ""]
   result = []
   for idx in range(2, len(wordlist)-2):
@@ -74,23 +75,6 @@ def random_index(lists, i):
     j = randint(0, n-1)
   return j
 
-# def random_index(lists, i):
-#   n = len(lists)
-#   j = (n+i)/2
-#   if j == i:
-#     return i/2
-#   else:
-#     return j
-
-# def random_index(lists, i):
-#   n = len(lists)
-#   if (i == 0) or (i == 1):
-#     return n/2
-#   else:
-#    return i/2
-
-
-
 def check_word_in_dict(word, filename):
   with open(filename, 'r') as f:
     data = f.read().replace('\n', ' ')
@@ -117,7 +101,6 @@ def is_caps(word):
 def load_trigger_data(filename):
   res = []
   check_trigger = []; string5 = []; main_word_pos_list = []; main_word_pos_in_dict = [];
-  num1 = []; caps1 = []; num2 = []; caps2 = []; num3 = []; caps3 = []; num4 = []; caps4 = []; num5 = []; caps5 = [];
   full_word_pos = []; main_word_in_dict = []
 
   with open(filename, 'r') as f:
@@ -136,17 +119,6 @@ def load_trigger_data(filename):
             main_word_pos_in_dict.append(check_word_in_dict(main_word_pos, "get_data/list_pos.txt"))
             main_word_in_dict.append(check_word_in_dict(main_word, "get_data/dictionary.txt"))
             full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[i])))
-            num1.append(is_number(lists[i][0]))
-            caps1.append(is_caps(lists[i][0]))
-            num2.append(is_number(lists[i][1]))
-            caps2.append(is_caps(lists[i][1]))
-            num3.append(is_number(lists[i][2]))
-            caps3.append(is_caps(lists[i][2]))
-            num4.append(is_number(lists[i][3]))
-            caps4.append(is_caps(lists[i][3]))
-            num5.append(is_number(lists[i][4]))
-            caps5.append(is_caps(lists[i][4]))
-
 
             j = random_index(lists, i) #random index
             random_main_word = lists[j][2]
@@ -158,18 +130,8 @@ def load_trigger_data(filename):
             main_word_pos_in_dict.append(check_word_in_dict(random_main_word_pos, "get_data/list_pos.txt"))
             main_word_in_dict.append(check_word_in_dict(random_main_word, "get_data/dictionary.txt"))
             full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[j])))
-            num1.append(is_number(lists[j][0]))
-            caps1.append(is_caps(lists[j][0]))
-            num2.append(is_number(lists[j][1]))
-            caps2.append(is_caps(lists[j][1]))
-            num3.append(is_number(lists[j][2]))
-            caps3.append(is_caps(lists[j][2]))
-            num4.append(is_number(lists[j][3]))
-            caps4.append(is_caps(lists[j][3]))
-            num5.append(is_number(lists[j][4]))
-            caps5.append(is_caps(lists[j][4]))
 
-    d = {"string5":string5, "check_trigger": check_trigger, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict, "num1": num1, "caps1": caps1, "num2": num2, "caps2": caps2, "num3": num3, "caps3": caps3, "num4": num4, "caps4": caps4, "num5": num5, "caps5": caps5}
+    d = {"string5":string5, "check_trigger": check_trigger, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict}
     train = pd.DataFrame(d)
     train.pos = pd.Categorical(train.pos)    #change pos to int
     train['pos'] = train.pos.cat.codes
@@ -184,7 +146,7 @@ def train_main():
 
   print "Train data dimensions:", train.shape
   print "Test data dimensions:", test.shape
-  print "List features: string5, pos, pos_in_dict, in_dict, num1, num2, num3, num4, num5, caps1, caps2, caps3, caps4, caps5"
+  print "List features: string5, pos, pos_in_dict, in_dict"
 
   print "Create vector..."
   X_train = create_X(train, vectorizer)
@@ -315,48 +277,70 @@ def get_word_from_tree(dep, i):
   temp = ' '.join(leaves)
   return temp + " " + root
 
+def get_dependency(node, dep, sentence, temp):
+  dep_list = node["deps"]
+  if "nsubj" in dep_list.keys():
+    for i in range(len(dep_list["nsubj"])):
+      j = dep_list["nsubj"][i]
+      if j in temp: # da tung xet cay roi
+        break
+      sub = sentence.split()[j - 1]
+      if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
+        sub = get_word_from_tree(dep, j)
+      print "Subject : " + sub
+
+  if "dobj" in dep_list.keys():
+    for i in range(len(dep_list["dobj"])):
+      j = dep_list["dobj"][i]
+      if j in temp: # da tung xet cay roi
+        break
+      argument = sentence.split()[j - 1]
+      if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
+        argument = get_word_from_tree(dep, j)
+      print "Argument : " + argument
+
+  if "nmod" in dep_list.keys():
+    for i in range(len(dep_list["nmod"])):
+      j = dep_list["nmod"][i]
+      if j in temp: # da tung xet cay roi
+        break
+      argument = sentence.split()[j - 1]
+      if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
+        argument = get_word_from_tree(dep, j)
+      print "Argument : " + argument
+
+  if "nmod:tmod" in dep_list.keys():
+    for i in range(len(dep_list["nmod:tmod"])):
+      j = dep_list["nmod:tmod"][i]
+      if j in temp: # da tung xet cay roi
+        break
+      argument = sentence.split()[j - 1]
+      if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
+        argument = get_word_from_tree(dep, j)
+      print "Argument : " + argument
+
 def dependency_parser(sentence, result):
   dep_parser=StanfordDependencyParser(model_path="/home/tuquyet/GR/stanford-english-corenlp-2018-10-05-models/edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
   sub = ""; argument = "";
-  word = result[0]
   dep = dep_parser.raw_parse(sentence).next()
+  dep.tree().pretty_print()
+  print list(dep.triples())
 
-  if word in sentence:
-    index = sentence.split().index(word) + 1
-    dep.tree().pretty_print()
-    print list(dep.triples())
-
-    while dep._rel(index) != "root":
-      index = dep._hd(index)
-
-    # if dep._rel(index) == "root":
-    node = dep.get_by_address(index)
-    dep_list = node["deps"]
-    if "nsubj" in dep_list.keys():
-      i = dep_list["nsubj"][0]
-      sub = sentence.split()[i - 1]
-      if str(type(dep._tree(i))) != "<type 'unicode'>": #is a tree
-        sub = get_word_from_tree(dep, i)
-      print "Subject : " + sub
-    if "nmod" in dep_list.keys():
-      for j in range(len(dep_list["nmod"])):
-        i = dep_list["nmod"][j]
-        argument = sentence.split()[i - 1]
-        if str(type(dep._tree(i))) != "<type 'unicode'>": #is a tree
-          argument = get_word_from_tree(dep, i)
-        print "Argument : " + argument
-    if "nmod:tmod" in dep_list.keys():
-      for j in range(len(dep_list["nmod:tmod"])):
-        i = dep_list["nmod:tmod"][0]
-        argument = sentence.split()[i - 1]
-        if str(type(dep._tree(i))) != "<type 'unicode'>": #is a tree
-          argument = get_word_from_tree(dep, i)
-        print "Argument : " + argument
-
-  else:
-    print "Error!"
-
-
+  for i in range(len(result)):
+    word = result[i]
+    print "Trigger : " + word
+    if word in sentence:
+      index = sentence.split().index(word) + 1
+      temp = []
+      while True:
+        temp.append(index)
+        node = dep.get_by_address(index)
+        get_dependency(node, dep, sentence, temp)
+        index = dep._hd(index)
+        if index == 0:
+          break
+    else:
+      print "Error!"
 
 def predict_input_sentence(mes):
   vectorizer_pred = CountVectorizer(max_features = 5)
@@ -368,7 +352,6 @@ def predict_input_sentence(mes):
   vectorizer = load_model('model/vectorizer.pkl')
 
   string5 = []; main_word_pos_list = []; main_word_pos_in_dict = [];
-  num1 = []; caps1 = []; num2 = []; caps2 = []; num3 = []; caps3 = []; num4 = []; caps4 = []; num5 = []; caps5 = [];
   full_word_pos = []; main_word_in_dict = []
 
   lists = make_lists_from_string(mes)
@@ -381,18 +364,8 @@ def predict_input_sentence(mes):
     main_word_pos_in_dict.append(check_word_in_dict(main_word_pos, "get_data/list_pos.txt"))
     main_word_in_dict.append(check_word_in_dict(main_word, "get_data/dictionary.txt"))
     full_word_pos.append(get_list_pos_from_sentence(convert_list_5_to_string5(lists[i])))
-    num1.append(is_number(lists[i][0]))
-    caps1.append(is_caps(lists[i][0]))
-    num2.append(is_number(lists[i][1]))
-    caps2.append(is_caps(lists[i][1]))
-    num3.append(is_number(lists[i][2]))
-    caps3.append(is_caps(lists[i][2]))
-    num4.append(is_number(lists[i][3]))
-    caps4.append(is_caps(lists[i][3]))
-    num5.append(is_number(lists[i][4]))
-    caps5.append(is_caps(lists[i][4]))
 
-  d2 = {"string5":string5, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict, "num1": num1, "caps1": caps1, "num2": num2, "caps2": caps2, "num3": num3, "caps3": caps3, "num4": num4, "caps4": caps4, "num5": num5, "caps5": caps5}
+  d2 = {"string5":string5, "pos": main_word_pos_list, "full_pos": full_word_pos, "pos_in_dict": main_word_pos_in_dict, "in_dict": main_word_in_dict}
 
   pred = pd.DataFrame(d2)
   pred.pos = pd.Categorical(pred.pos)
@@ -424,7 +397,7 @@ def fit_SVM(X_train,y_train):
 def create_X(mode, vectorizer):
   train_string5 = mode["string5"].values
   string5_vectorizer = vectorizer.fit_transform(train_string5)
-  train_features = mode[["pos", "pos_in_dict", "in_dict", "num1", "num2", "num3", "num4", "num5", "caps1", "caps2", "caps3", "caps4", "caps5"]].values
+  train_features = mode[["pos", "pos_in_dict", "in_dict"]].values
   a = string5_vectorizer.toarray()
   X_train = np.concatenate((a, train_features[:None]), axis=1)
   return X_train
@@ -462,5 +435,4 @@ if __name__ == '__main__':
       print "Error argument!"
 
 # print load_trigger_data("get_data/trigger_event_data.txt")
-
-# print get_pos_from_sentence("The leaders held a meeting  in Beijing")
+# print get_pos_from_sentence("The city assigned 2,000 police officers to the rally, including undercover officers who carried beeper-sized radiation detectors and other counter-terrorism equipment")
