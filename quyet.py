@@ -13,6 +13,8 @@ from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 import nltk
 from random import randint
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
 
 from nltk.parse.stanford import StanfordDependencyParser
 os.environ['CLASSPATH'] = '/home/tuquyet/GR/stanford-parser-full-2018-10-17/stanford-parser.jar'
@@ -271,6 +273,25 @@ def post_processing(mes, pred_list):
     result = get_trigger_from_lever(pred_list)
   return result
 
+def getNER(word, sentence):
+  ner = StanfordNERTagger('/home/tuquyet/GR/stanford-ner-2018-10-16/classifiers/english.all.3class.distsim.crf.ser.gz','/home/tuquyet/GR/stanford-ner-2018-10-16/stanford-ner.jar', encoding='utf-8')
+  nerList = []
+  list_words = word.split()
+  tokenized_text = word_tokenize(sentence)
+  classified_text = ner.tag(tokenized_text)
+  for i in range(len(list_words)):
+    for j in range(len(classified_text)):
+      if classified_text[j][0] == list_words[i]:
+        nerList.append(classified_text[j][1])
+  result = False
+  if len(nerList) > 0:
+    result = all(elem == nerList[0] for elem in nerList) #all element is equal
+  if result :
+    return nerList[0]
+  else:
+    for k in range(len(nerList)):
+      print nerList[k]
+
 def get_word_from_tree(dep, i):
   root = dep._tree(i).label()
   leaves = dep._tree(i).leaves()
@@ -288,6 +309,7 @@ def get_dependency(node, dep, sentence, temp):
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
         sub = get_word_from_tree(dep, j)
       print "Subject : " + sub
+      print getNER(sub, sentence)
 
   if "dobj" in dep_list.keys():
     for i in range(len(dep_list["dobj"])):
@@ -298,6 +320,7 @@ def get_dependency(node, dep, sentence, temp):
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
         argument = get_word_from_tree(dep, j)
       print "Argument : " + argument
+      print getNER(argument, sentence)
 
   if "nmod" in dep_list.keys():
     for i in range(len(dep_list["nmod"])):
@@ -308,6 +331,7 @@ def get_dependency(node, dep, sentence, temp):
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
         argument = get_word_from_tree(dep, j)
       print "Argument : " + argument
+      print getNER(argument, sentence)
 
   if "nmod:tmod" in dep_list.keys():
     for i in range(len(dep_list["nmod:tmod"])):
@@ -318,6 +342,7 @@ def get_dependency(node, dep, sentence, temp):
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
         argument = get_word_from_tree(dep, j)
       print "Argument : " + argument
+      print getNER(argument, sentence)
 
 def dependency_parser(sentence, result):
   dep_parser=StanfordDependencyParser(model_path="/home/tuquyet/GR/stanford-english-corenlp-2018-10-05-models/edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
@@ -435,4 +460,3 @@ if __name__ == '__main__':
       print "Error argument!"
 
 # print load_trigger_data("get_data/trigger_event_data.txt")
-# print get_pos_from_sentence("The city assigned 2,000 police officers to the rally, including undercover officers who carried beeper-sized radiation detectors and other counter-terrorism equipment")
