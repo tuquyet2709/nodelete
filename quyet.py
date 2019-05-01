@@ -30,7 +30,8 @@ def time_diff_str(t1, t2):
 
 def make_lists_from_string(string):
   #a[1][2] de lay phan tu giua
-  wordlist = re.sub("[^\w]", " ",string).split()
+  # wordlist = re.sub("[^\w'], [^\w-]", " ",string).split()
+  wordlist = re.sub("[^\w-]", " ",string).split()
   # wordlist = re.split(" ", string)
   wordlist = ["", ""] + wordlist + ["", ""]
   result = []
@@ -196,7 +197,8 @@ def check_adj(word):
     return 0
 
 def get_front_word(sentence, word):
-  list_words = sentence.split(" ")
+  list_words = re.sub("[^\w-]", " ",sentence).split()
+  # list_words = re.sub("[^\w'], [^\w-]", " ",sentence).split()
   index = list_words.index(word)
   if index == 0:
     return None
@@ -241,6 +243,8 @@ def get_trigger_from_lever(pred_list): #top 1, top 2,...
 def post_processing(mes, pred_list):
   pos = get_pos_from_sentence(mes)
   result = ""
+  pos1 = ""
+  pos2 = ""
 
   if (len(pred_list) == 1):
     result = pred_list[0].split()
