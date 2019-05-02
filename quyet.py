@@ -15,6 +15,7 @@ import nltk
 from random import randint
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
+import spacy
 
 from nltk.parse.stanford import StanfordDependencyParser
 os.environ['CLASSPATH'] = '/home/tuquyet/GR/stanford-parser-full-2018-10-17/stanford-parser.jar'
@@ -170,6 +171,7 @@ def train_main():
   print "Training completed in %s" % (time_diff_str(t0, time.time()))
   print "Accuracy: %0.3f" % accuracy_score(y_test, y_pred)
   print "Confuse matrix: \n", confusion_matrix(y_test, y_pred, labels=["1", "0"])
+  create_model(train, vectorizer)
 
 def load_model(model):
   print('Loading model ...')
@@ -278,23 +280,12 @@ def post_processing(mes, pred_list):
   return result
 
 def getNER(word, sentence):
-  ner = StanfordNERTagger('/home/tuquyet/GR/stanford-ner-2018-10-16/classifiers/english.all.3class.distsim.crf.ser.gz','/home/tuquyet/GR/stanford-ner-2018-10-16/stanford-ner.jar', encoding='utf-8')
-  nerList = []
-  list_words = word.split()
-  tokenized_text = word_tokenize(sentence)
-  classified_text = ner.tag(tokenized_text)
-  for i in range(len(list_words)):
-    for j in range(len(classified_text)):
-      if classified_text[j][0] == list_words[i]:
-        nerList.append(classified_text[j][1])
-  result = False
-  if len(nerList) > 0:
-    result = all(elem == nerList[0] for elem in nerList) #all element is equal
-  if result :
-    return nerList[0]
-  else:
-    for k in range(len(nerList)):
-      print nerList[k]
+  nlp = spacy.load("en_core_web_sm")
+  doc = nlp(unicode(sentence))
+  for i in doc.ents:
+    if (word in str(i)) or (str(i) in word):
+      return str(i.label_)
+
 
 def get_word_from_tree(dep, i):
   root = dep._tree(i).label()
@@ -431,13 +422,10 @@ def create_X(mode, vectorizer):
   X_train = np.concatenate((a, train_features[:None]), axis=1)
   return X_train
 
-def create_model():
+def create_model(train, vectorizer):
     t0 = time.time()
-    vectorizer = CountVectorizer(max_features = 5)
 
-    print "Load data..."
-    train = load_trigger_data('general_data/train.txt')
-
+    print "Create model..."
     X_train = create_X(train, vectorizer)
     print "X_train:"
     print X_train
@@ -453,9 +441,6 @@ if __name__ == '__main__':
 
     if mode == "train":
       train_main()
-
-    elif mode == "model":
-      create_model()
 
     elif mode == "custom_input":
       mes = raw_input("Input a sentence: ")
