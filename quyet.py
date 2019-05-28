@@ -8,7 +8,7 @@ import pandas as pd
 import time
 import sys
 import os
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 import nltk
@@ -30,10 +30,7 @@ def time_diff_str(t1, t2):
   return str(mins) + " mins and " + str(secs) + " seconds"
 
 def make_lists_from_string(string):
-  #a[1][2] de lay phan tu giua
-  # wordlist = re.sub("[^\w'], [^\w-]", " ",string).split()
   wordlist = re.sub("[^\w-]", " ",string).split()
-  # wordlist = re.split(" ", string)
   wordlist = ["", ""] + wordlist + ["", ""]
   result = []
   for idx in range(2, len(wordlist)-2):
@@ -167,14 +164,13 @@ def train_main():
   clf = SVC(kernel='rbf', C=500)
   clf.fit(X_train, y_train)
   y_pred = clf.predict(X_test)
-  # print y_pred
+
   print "Training completed in %s" % (time_diff_str(t0, time.time()))
   print "Accuracy: %0.3f" % accuracy_score(y_test, y_pred)
   print "Confuse matrix: \n", confusion_matrix(y_test, y_pred, labels=["1", "0"])
   create_model(train, vectorizer)
 
 def load_model(model):
-  print('Loading model ...')
   if os.path.isfile(model):
     return joblib.load(model)
   else:
@@ -286,58 +282,66 @@ def getNER(word, sentence):
     if (word in str(i)) or (str(i) in word):
       return str(i.label_)
 
+def make_list_index(dep, index, sentence, temp):
+  node = dep.get_by_address(index)
+  for i in node["deps"].values():
+    for j in i :
+      temp.append(j)
+      if str(type(dep._tree(j))) != "<type 'unicode'>":
+        temp = make_list_index(dep, j, sentence, temp)
+  return temp
 
-def get_word_from_tree(dep, i):
-  root = dep._tree(i).label()
-  leaves = dep._tree(i).leaves()
-  temp = ' '.join(leaves)
-  return temp + " " + root
+def get_word_from_tree(dep, index, sentence):
+  temp = []
+  node = dep.get_by_address(index)
+  temp.append(node["address"])
+  temp = make_list_index(dep, index, sentence, temp)
+  a = min(temp)
+  b = max(temp)
+  return " ".join(sentence.split()[a-1 : b])
 
 def get_dependency(node, dep, sentence, temp):
   dep_list = node["deps"]
+
   if "nsubj" in dep_list.keys():
     for i in range(len(dep_list["nsubj"])):
       j = dep_list["nsubj"][i]
       if j in temp: # da tung xet cay roi
-        break
+        continue
       sub = sentence.split()[j - 1]
-      if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
-        sub = get_word_from_tree(dep, j)
-      print "Subject : " + sub
-      print getNER(sub, sentence)
+      if str(type(dep._tree(j))) != "<type 'unicode'>":
+        sub = get_word_from_tree(dep, j, sentence)
+      print "Subject : %s (%s)" % (sub, getNER(sub, sentence))
 
   if "dobj" in dep_list.keys():
     for i in range(len(dep_list["dobj"])):
       j = dep_list["dobj"][i]
       if j in temp: # da tung xet cay roi
-        break
+        continue
       argument = sentence.split()[j - 1]
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
-        argument = get_word_from_tree(dep, j)
-      print "Argument : " + argument
-      print getNER(argument, sentence)
+        argument = get_word_from_tree(dep, j, sentence)
+      print "Argument : %s (%s)" % (argument, getNER(argument, sentence))
 
   if "nmod" in dep_list.keys():
     for i in range(len(dep_list["nmod"])):
       j = dep_list["nmod"][i]
       if j in temp: # da tung xet cay roi
-        break
+        continue
       argument = sentence.split()[j - 1]
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
-        argument = get_word_from_tree(dep, j)
-      print "Argument : " + argument
-      print getNER(argument, sentence)
+        argument = get_word_from_tree(dep, j, sentence)
+      print "Argument : %s (%s)" % (argument, getNER(argument, sentence))
 
   if "nmod:tmod" in dep_list.keys():
     for i in range(len(dep_list["nmod:tmod"])):
       j = dep_list["nmod:tmod"][i]
       if j in temp: # da tung xet cay roi
-        break
+        continue
       argument = sentence.split()[j - 1]
       if str(type(dep._tree(j))) != "<type 'unicode'>": #is a tree
-        argument = get_word_from_tree(dep, j)
-      print "Argument : " + argument
-      print getNER(argument, sentence)
+        argument = get_word_from_tree(dep, j, sentence)
+      print "Argument : %s (%s)" % (argument, getNER(argument, sentence))
 
 def dependency_parser(sentence, result):
   dep_parser=StanfordDependencyParser(model_path="/home/tuquyet/GR/stanford-english-corenlp-2018-10-05-models/edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
@@ -348,6 +352,7 @@ def dependency_parser(sentence, result):
 
   for i in range(len(result)):
     word = result[i]
+    print "----------------------"
     print "Trigger : " + word
     if word in sentence:
       index = sentence.split().index(word) + 1
@@ -403,11 +408,11 @@ def predict_input_sentence(mes):
   print "List words can be a trigger :"
   print pred_list
   result = post_processing(mes, pred_list) #hau xu li
-  print "================================================="
+  print "=========================RESULT========================="
   print "TRIGGER : "
   print result
   dependency_parser(mes, result)
-  print "================================================="
+  print "========================================================"
 
 def fit_SVM(X_train,y_train):
   svm = SVC(kernel='rbf', C=1000)
